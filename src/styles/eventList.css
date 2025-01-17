@@ -1,0 +1,20 @@
+ul {
+    list-style-type: none;
+}
+.card {
+    text-align: left;
+}
+.card .event-list-title {
+    text-align: center;
+}
+.card h1 {
+    text-align: center;
+}
+.container {
+    border: 1px dashed blue;
+}
+
+li {
+    padding: 5px;
+    border: 1px solid black;
+}
