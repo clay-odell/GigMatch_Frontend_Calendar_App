@@ -3,7 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import GigMatchApi from "../../../utils/api";
 import UserCard from "./UserCard";
 import { useUser } from "../../contexts/UserContext";
-import DeleteUserButton from "./DeleteUserButton";
+import DeleteUserButton from "../buttons/DeleteUserButton";
 
 const UserList = () => {
   const { currentUser } = useUser();
