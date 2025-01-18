@@ -24,7 +24,7 @@ const UserCard = ({ user }) => {
           </p>
         </>
         <div className="d-flex justify-content-center mt-3">
-          <DeleteUserButton user={user} />
+          
         </div>
       </Container>
     </Card>
