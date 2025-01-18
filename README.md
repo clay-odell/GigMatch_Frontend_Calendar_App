@@ -48,4 +48,9 @@ Seeding your DB from your backend:
 From Bash:
 psql -U [your_username] -d [your_db_name] -f gigMatch-schema.sql
 
+
+# Testing:
+There are some existing test; however some of them currently don't perform as expected. An interesting personal challenge would be to fix the errors, and get the tests up and running as expected.
+
+
 Happy coding!!! 

@@ -36,6 +36,10 @@ const UserProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (formData.password.length < 8) {
+        setToastMessage("Password must be at least 8 characters.");
+        setShowToast(true);
+      }
       const updatedUser = await GigMatchApi.updateUser(
         currentUser.userid,
         formData
