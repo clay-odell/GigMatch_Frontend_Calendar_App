@@ -10,6 +10,7 @@ import { useUser } from "../../contexts/UserContext";
 import UserCalendar from "../calendars/UserCalendar";
 import UserProfile from "../user/UserProfile";
 import UserList from "../user/UserList";
+import NotFound from "../404/NotFound";
 
 const GigMatchRouter = () => {
   const { currentUser } = useUser();
@@ -32,6 +33,7 @@ const GigMatchRouter = () => {
       ) : (
         <Route path="*" element={<Navigate to="/artist-login" />} />
       )}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
