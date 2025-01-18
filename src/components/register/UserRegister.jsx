@@ -12,6 +12,7 @@ const UserRegister = () => {
     artistName: "",
     userType: "Artist",
   });
+  const [error, setError] = useState("");
 
   const { setCurrentUser, setToken } = useContext(UserContext);
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ const UserRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
     try {
       const res = await GigMatchApi.registerUser(formData);
       const { token, user } = res;
@@ -37,14 +42,18 @@ const UserRegister = () => {
       alert("Registration successful!");
       navigate("/master-calendar");
     } catch (error) {
-      console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      if (error.response && error.response.data) {
+        setError(`Registration failed: ${error.response.data.error}`)
+      } else {
+        setError("Registration failed. Please try again later.")
+      }
     }
   };
 
   return (
     <Card>
       <Card.Title>Artist Registration</Card.Title>
+      
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
@@ -93,6 +102,7 @@ const UserRegister = () => {
         <Button type="submit" variant="primary">
           Register
         </Button>
+        {error && <p style={{color: 'red'}}>{error}</p>}
       </Form>
     </Card>
   );

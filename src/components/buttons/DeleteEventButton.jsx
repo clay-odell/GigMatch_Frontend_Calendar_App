@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "../../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import GigMatchApi from "../../../utils/api";
 
-const DeleteEventButton = ({ event }) => {
+const DeleteEventButton = ({ event, fetchUpdatedEvents }) => {
   const { currentUser } = useUser();
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [shouldReload, setShouldReload] = useState(false);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -26,9 +26,7 @@ const DeleteEventButton = ({ event }) => {
           `${event.artistname}'s event: ${event.eventname} deleted`
         );
         setShowToast(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        setShouldReload(true); // Trigger re-fetching or state updates      
       } catch (error) {
         console.error("There was an error deleting that event", error);
         setToastMessage("Error deleting event. Please try again.");
@@ -40,6 +38,14 @@ const DeleteEventButton = ({ event }) => {
       setShowToast(true);
     }
   };
+
+  useEffect(() => {
+    if (shouldReload) {
+      
+      fetchUpdatedEvents();
+      setShouldReload(false); 
+    }
+  }, [shouldReload, fetchUpdatedEvents]);
 
   return (
     <>

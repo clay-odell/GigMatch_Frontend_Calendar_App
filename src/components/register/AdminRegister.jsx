@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Card } from "react-bootstrap";
+import GigMatchApi from "../../../utils/api";
+import { useUser } from "../../contexts/UserContext";
 
 const AdminRegister = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +10,8 @@ const AdminRegister = () => {
     password: "",
     location: "",
   });
+  const [error, setError] = useState("");
+  const {setToken, setUser} = useUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,11 +23,45 @@ const AdminRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters in length.");
+      return;
+    }
+  
     const dataToSubmit = {
       ...formData,
-      userType: formData.userType || "Artist",
+      userType: formData.userType || "Admin",
     };
+  
+    try {
+      const res = await GigMatchApi.registerAdmin(dataToSubmit);
+      const { token, user } = res;
+  
+      if (!token) {
+        setError("Invalid or missing token.");
+        return;
+      } 
+      if (!user) {
+        setError("Invalid or missing admin information.");
+        return;
+      }
+  
+      setToken(token);
+      setCurrentUser(user);
+      GigMatchApi.token = token; // Set token in GigMatchApi
+      alert("Registration successful!");
+      navigate("/master-calendar");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setError(`Registration failed: ${error.response.data.error}`);
+      } else {
+        setError("Registration failed. Please try again later.");
+      }
+      console.error("Registration failed:", error);
+    }
   };
+  
 
   return (
     <Card>
@@ -72,6 +110,7 @@ const AdminRegister = () => {
         <Button type="submit" variant="primary">
           Register
         </Button>
+        {error && <p style={{color: 'red'}}>{error}</p>}
       </Form>
     </Card>
   );
