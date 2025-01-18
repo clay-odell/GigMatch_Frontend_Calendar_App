@@ -10,7 +10,6 @@ import { useUser } from "../../contexts/UserContext";
 import UserCalendar from "../calendars/UserCalendar";
 import UserProfile from "../user/UserProfile";
 import UserList from "../user/UserList";
-import NotFound from "../404/NotFound";
 
 const GigMatchRouter = () => {
   const { currentUser } = useUser();
@@ -28,12 +27,13 @@ const GigMatchRouter = () => {
         <>
         <Route path={`/users/${currentUser.artistname}/calendar`} element={<UserCalendar />} />
         <Route path={`/users/${currentUser.userid}/profile`} element={<UserProfile />} />
-        <Route path="users/list" element={<UserList />} />
+        <Route path="/users/list" element={<UserList />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to="/artist-login" />} />
       )}
-      <Route path="*" element={<NotFound />} />
+      {/* Redirect all other routes to Home */}
+      <Route path="*" element={<Home />} />
     </Routes>
   );
 };
