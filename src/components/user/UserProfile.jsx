@@ -24,6 +24,7 @@ const UserProfile = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [shouldReload, setShouldReload] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +36,9 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password.length < 8){
+      setError("Password must be a minimum of 8 characters.");
+    }
     try {
       
       const updatedUser = await GigMatchApi.updateUser(
@@ -48,7 +52,7 @@ const UserProfile = () => {
       setShouldReload(true);
     } catch (error) {
       console.error("There was an error updating the profile", error);
-      setToastMessage("Password must be a minimum of 8 characters. Please try again.");
+      setToastMessage(`There was an error updating user profile: ${error}.`);
       setShowToast(true);
     }
   };
@@ -133,6 +137,7 @@ const UserProfile = () => {
                 onChange={handleChange}
               />
             </Form.Group>
+            {error && <p style={{color: 'red'}}>{error}</p>}
             <div className="d-flex justify-content-center mt-3">
               <Button variant="primary" type="submit" className="mt-3">
                 Update Profile
