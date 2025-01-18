@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-    <Router basename={import.meta.env.VITE_REACT_APP_BASE_URL || "/"}>
+    <Router basename={ "https://gigmatch-frontend-calendar-app.onrender.com"|| "/"}>
       <NavBar />
       <GigMatchRouter />
     </Router>
