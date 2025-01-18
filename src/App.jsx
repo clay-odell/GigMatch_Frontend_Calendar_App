@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-    <Router>
+    <Router basename={import.meta.env.VITE_REACT_APP_BASE_URL || "/"}>
       <NavBar />
       <GigMatchRouter />
     </Router>

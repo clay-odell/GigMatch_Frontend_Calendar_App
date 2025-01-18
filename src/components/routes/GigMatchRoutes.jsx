@@ -18,7 +18,7 @@ const GigMatchRouter = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/artist-login" element={<ArtistLogin />} />
-      <Route path="/venue-login" element={<VenueLogin />} />
+      <Route path="/admin-login" element={<VenueLogin />} />
       <Route path="/artist-register" element={<UserRegister />} />
       <Route path="/admin-register" element={<AdminRegister />} />  
       <Route path="/master-calendar" element={<MainCalendar />} />
