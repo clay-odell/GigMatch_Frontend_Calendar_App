@@ -27,7 +27,7 @@ const NavBar = () => {
                     Artist Register
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/admin-register">
-                    Admin Register
+                    Venue Register
                   </NavDropdown.Item>
                 </NavDropdown>
               </>
