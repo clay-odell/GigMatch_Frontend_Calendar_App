@@ -3,28 +3,30 @@ import ListGroup from "react-bootstrap/ListGroup";
 import GigMatchApi from "../../../utils/api";
 import UserCard from "./UserCard";
 import { useUser } from "../../contexts/UserContext";
+import DeleteUserButton from "./DeleteUserButton";
 
 const UserList = () => {
   const { currentUser } = useUser();
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const allUsers = await GigMatchApi.getAllUsers(currentUser);
+  const fetchUsers = async () => {
+    try {
+      const allUsers = await GigMatchApi.getAllUsers(currentUser);
 
-        if (allUsers.length === 0) {
-          setError("No users to fetch...");
-        } else {
-          setUsers(allUsers);
-          setError(null);
-        }
-      } catch (error) {
-        console.error("There was an error fetching users", error);
-        setError("There was an error fetching users");
+      if (allUsers.length === 0) {
+        setError("No users to fetch...");
+      } else {
+        setUsers(allUsers);
+        setError(null);
       }
-    };
+    } catch (error) {
+      console.error("There was an error fetching users", error);
+      setError("There was an error fetching users");
+    }
+  };
+
+  useEffect(() => {
     fetchUsers();
   }, [currentUser]);
 
@@ -38,6 +40,7 @@ const UserList = () => {
           {users.map((user) => (
             <ListGroup.Item key={user.email}>
               <UserCard user={user} />
+              <DeleteUserButton user={user} fetchUpdatedUsers={fetchUsers} />
             </ListGroup.Item>
           ))}
         </ListGroup>
@@ -45,4 +48,5 @@ const UserList = () => {
     </div>
   );
 };
+
 export default UserList;
