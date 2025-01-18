@@ -3,7 +3,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 import GigMatchApi from "../../../utils/api";
 import UserCard from "./UserCard";
 import { useUser } from "../../contexts/UserContext";
-import DeleteUserButton from "../buttons/DeleteUserButton";
 
 const UserList = () => {
   const { currentUser } = useUser();
@@ -39,8 +38,7 @@ const UserList = () => {
         <ListGroup>
           {users.map((user) => (
             <ListGroup.Item key={user.email}>
-              <UserCard user={user} />
-              <DeleteUserButton user={user} fetchUpdatedUsers={fetchUsers} />
+              <UserCard user={user} fetchUpdatedUsers={fetchUsers} />
             </ListGroup.Item>
           ))}
         </ListGroup>
