@@ -19,7 +19,7 @@ const NavBar = () => {
                 <Nav.Link as={Link} to="/artist-login">
                   Artist Login
                 </Nav.Link>
-                <Nav.Link as={Link} to="/venue-login">
+                <Nav.Link as={Link} to="/admin-login">
                   Venue Login
                 </Nav.Link>
                 <NavDropdown title="Sign Up" id="basic-nav-dropdown">
