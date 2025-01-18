@@ -27,7 +27,7 @@ const UserRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(password.length < 8) {
+    if (formData.password.length < 8) {
       setError("Password must be at least 8 characters long.");
       return;
     }
@@ -37,15 +37,15 @@ const UserRegister = () => {
 
       setToken(token);
       setCurrentUser(user);
-      GigMatchApi.token = token; // Set token in GigMatchApi
+      GigMatchApi.token = token;
 
       alert("Registration successful!");
       navigate("/master-calendar");
     } catch (error) {
       if (error.response && error.response.data) {
-        setError(`Registration failed: ${error.response.data.error}`)
+        setError(`Registration failed: ${error.response.data.error}`);
       } else {
-        setError("Registration failed. Please try again later.")
+        setError("Registration failed. Please try again later.");
       }
     }
   };
@@ -53,7 +53,6 @@ const UserRegister = () => {
   return (
     <Card>
       <Card.Title>Artist Registration</Card.Title>
-      
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
@@ -102,7 +101,7 @@ const UserRegister = () => {
         <Button type="submit" variant="primary">
           Register
         </Button>
-        {error && <p style={{color: 'red'}}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </Form>
     </Card>
   );
