@@ -17,10 +17,7 @@ const NavBar = () => {
             {!currentUser ? (
               <>
                 <Nav.Link as={Link} to="/artist-login">
-                  Artist Login
-                </Nav.Link>
-                <Nav.Link as={Link} to="/venue-login">
-                  Venue Login
+                  Sign In
                 </Nav.Link>
                 <Nav.Link as={Link} to="/artist-register">
                   Artist Sign Up
