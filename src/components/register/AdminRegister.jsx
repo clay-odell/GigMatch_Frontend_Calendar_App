@@ -10,6 +10,7 @@ const AdminRegister = () => {
     password: "",
     location: "",
     artistname: "",
+    usertype: "Admin"
   });
   const [error, setError] = useState("");
   const { setToken, setUser } = useUser();
@@ -32,9 +33,9 @@ const AdminRegister = () => {
 
     const dataToSubmit = {
       ...formData,
-      userType: formData.usertype || "Admin",
-      artistname: formData.venuename || formData.artistname
+      artistname: formData.artistname || formData.venuename
     };
+    
 
     try {
       const res = await GigMatchApi.registerAdmin(dataToSubmit);
