@@ -69,7 +69,7 @@ const AdminRegister = () => {
           <Form.Control
             type="text"
             name="name"
-            placeholder="Enter venue name"
+            placeholder="Enter user's name"
             value={formData.name}
             onChange={handleChange}
             required
@@ -114,6 +114,7 @@ const AdminRegister = () => {
             name="location"
             placeholder="Enter venue name"
             value={formData.venuename}
+            onChange={handleChange}
             required
             />
         </Form.Group>
