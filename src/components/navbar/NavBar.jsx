@@ -20,9 +20,9 @@ const NavBar = () => {
                   <NavDropdown.Item as={Link} to="/artist-login">
                     Artist Register
                   </NavDropdown.Item>
-                  <NavDropDown.Item as={Link} to="/venue-login">
+                  <NavDropdown.Item as={Link} to="/venue-login">
                     Venue Register
-                  </NavDropDown.Item>
+                  </NavDropdown.Item>
                 </NavDropdown>
 
                 <Nav.Link as={Link} to="/artist-register">
