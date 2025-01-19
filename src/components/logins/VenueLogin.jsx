@@ -16,16 +16,16 @@ const VenueLogin = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  console.log("Form Data", formData);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
       const { token, admin } = await GigMatchApi.adminLogin(formData);
-
       setCurrentUser(admin);
       setToken(token);
-
       localStorage.setItem("currentUser", JSON.stringify(admin));
       localStorage.setItem("token", token);
       navigate("/master-calendar");
