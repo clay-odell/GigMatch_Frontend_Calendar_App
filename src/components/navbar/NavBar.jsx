@@ -39,17 +39,17 @@ const NavBar = () => {
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
-                  to={`users/${currentUser.artistname || "default"}/calendar`}
+                  to={`users/${currentUser.artistName}/calendar`}
                 >
                   {currentUser.name}'s Calendar
                 </Nav.Link>
-                <Nav.Link as={Link} to={`/users/${currentUser.userid}/profile`}>
-                  {currentUser.artistname} Profile
+                <Nav.Link as={Link} to={`/users/${currentUser.userId}/profile`}>
+                  {currentUser.artistName} Profile
                 </Nav.Link>
                 {currentUser.usertype === "Admin" && (
                   <>
                     <Nav.Link as={Link} to="users/list">
-                      User List
+                      Users List
                     </Nav.Link>
                   </>
                 )}
