@@ -20,25 +20,31 @@ const VenueLogin = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+  
     try {
       const { token, admin } = await GigMatchApi.adminLogin(formData);
-      console.log("Admin", admin);
-      setCurrentUser(admin);
-      setToken(token);
-      navigate("/master-calendar");
+      if (token && admin) {
+        setCurrentUser(admin);
+        setToken(token);
+        navigate("/master-calendar");
+      } else {
+        throw new Error("Invalid token or admin details");
+      }
     } catch (error) {
+      console.error("Login error:", error);
       setError("Login failed. Please check your credentials and try again.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <Card>
       <Card.Title>Venue Login</Card.Title>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="email">
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Email</Form.Label> 
           <Form.Control
             type="email"
             name="email"
