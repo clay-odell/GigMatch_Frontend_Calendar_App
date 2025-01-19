@@ -28,16 +28,12 @@ const AdminRegister = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Ensure name and venuename are set correctly
-    const dataToSubmit = {
-      ...formData,
-      name: formData.name || formData.venuename,
-      venuename: formData.venuename || formData.name,
-    };
+    if(formData.password.length < 8) {
+      setError("Password must be at least 8 characters");
+    }
 
     try {
-      const res = await GigMatchApi.registerAdmin(dataToSubmit);
+      const res = await GigMatchApi.registerAdmin(formData);
       const { token, user } = res;
 
       if (!token) {
@@ -72,10 +68,11 @@ const AdminRegister = () => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
-            name="venueName"
+            name="name"
             placeholder="Enter venue name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
         </Form.Group>
         <Form.Group controlId="email">
@@ -86,6 +83,7 @@ const AdminRegister = () => {
             placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
         </Form.Group>
         <Form.Group controlId="password">
@@ -96,6 +94,7 @@ const AdminRegister = () => {
             placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
         </Form.Group>
         <Form.Group controlId="location">
@@ -103,15 +102,27 @@ const AdminRegister = () => {
           <Form.Control
             type="text"
             name="location"
-            placeholder="Venue Location"
+            placeholder="City, State"
             value={formData.location}
             onChange={handleChange}
           />
         </Form.Group>
+        <Form.Group controlId="venuename">
+          <Form.Label>Venue Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="location"
+            placeholder="Enter venue name"
+            value={formData.venuename}
+            required
+            />
+        </Form.Group>
+        <br />
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <Button type="submit" variant="primary">
           Register
         </Button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        
       </Form>
     </Card>
   );
