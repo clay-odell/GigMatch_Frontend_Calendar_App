@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  import.meta.env.VITE_BASE_URL || "https://gigmatch-backend.onrender.com";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
 class GigMatchApi {
   static token = localStorage.getItem("token");
@@ -46,7 +45,8 @@ class GigMatchApi {
 
   static async adminLogin(data) {
     const res = await this.request("admin/login", data, "post");
-    return res.user;
+    this.storeToken(res.token);
+    return res;
   }
 
   static async registerUser(data) {
@@ -56,7 +56,7 @@ class GigMatchApi {
 
   static async registerAdmin(data) {
     const res = await this.request("admin/register", data, "post");
-    return res;
+    return res.user;
   }
   static async getAllUsers(requester) {
     const res = await this.request("admin/users", requester);
@@ -67,14 +67,15 @@ class GigMatchApi {
     const res = await this.request("event", data, "post");
     return res;
   }
-  static async updateUser(userid, data) {
-    const res = await this.request(`user/${userid}`, data, "put");
-
+  static async updateUser(userId, data) {
+    console.log("User ID", userId);
+    const res = await this.request(`user/${userId}`, data, "put");
+    console.log("Update User Res", res);
     return res;
   }
 
-  static async updateEventRequest(requestid, data) {
-    const res = await this.request(`event/${requestid}`, data, "put");
+  static async updateEventRequest(requestId, data) {
+    const res = await this.request(`event/${requestId}`, data, "put");
     return res;
   }
 
@@ -83,8 +84,8 @@ class GigMatchApi {
     return res;
   }
 
-  static async getEventRequestsByUserId(userid) {
-    const res = await this.request(`user/events/${userid}`);
+  static async getEventRequestsByUserId(userId) {
+    const res = await this.request(`user/events/${userId}`);
     return res;
   }
 
@@ -92,19 +93,16 @@ class GigMatchApi {
     const res = await this.request(`event/${status}`);
     return res;
   }
-  static async deleteEventRequestByRequestId(requestid) {
-    const res = await this.request(
-      `admin/event-requests/${requestid}`,
-      {},
-      "delete"
-    );
+  static async deleteEventRequestByRequestId(requestId) {
+    const res = await this.request(`admin/event-requests/${requestId}`, {}, "delete");
     return res;
   }
-  static async deleteUser(userid) {
-    const res = await this.request(`admin/users/${userid}`, {}, "delete");
+  static async deleteUser(userId) {
+    const res = await this.request(`admin/users/${userId}`, {}, "delete");
     console.log("Delete User Res", res);
     return res;
-  }
+    }
+  
 }
 
 export default GigMatchApi;

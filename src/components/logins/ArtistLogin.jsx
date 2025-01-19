@@ -23,7 +23,6 @@ const ArtistLogin = () => {
     try {
       const { token, user } = await GigMatchApi.userLogin(formData);
       setCurrentUser(user);
-      console.log("Current User", user);
       setToken(token);
       localStorage.setItem("currentUser", JSON.stringify(user));
       localStorage.setItem("token", token);

@@ -19,17 +19,12 @@ const NavBar = () => {
                 <Nav.Link as={Link} to="/artist-login">
                   Artist Login
                 </Nav.Link>
-                <Nav.Link as={Link} to="/admin-login">
+                <Nav.Link as={Link} to="/venue-login">
                   Venue Login
                 </Nav.Link>
-                <NavDropdown title="Sign Up" id="basic-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/artist-register">
-                    Artist Register
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/admin-register">
-                    Venue Register
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link as={Link} to="/artist-register">
+                  Sign Up
+                </Nav.Link>
               </>
             ) : (
               <>
@@ -45,16 +40,18 @@ const NavBar = () => {
                 <Nav.Link as={Link} to={`/users/${currentUser.userid}/profile`}>
                   {currentUser.artistname} Profile
                 </Nav.Link>
-                {currentUser.usertype === "Admin" && (
-                  <>
-                    <Nav.Link as={Link} to="users/list">
-                      User List
-                    </Nav.Link>
-                  </>
-                )}
+                {currentUser.usertype ===
+                  "Admin" && (
+                    <>
+                      <Nav.Link as={Link} to="users/list">
+                        User List
+                      </Nav.Link>
+                    </>
+                  )}
                 <Nav.Link as={Link} to="/logout">
                   Logout
                 </Nav.Link>
+            
               </>
             )}
           </Nav>

@@ -5,30 +5,26 @@ import UserCard from "./UserCard";
 import { useUser } from "../../contexts/UserContext";
 
 const UserList = () => {
-  const { currentUser, token } = useUser();
+  const { currentUser } = useUser();
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
- 
-
-
-  const fetchUsers = async () => {
-    try {
-      GigMatchApi.token = token;
-      const allUsers = await GigMatchApi.getAllUsers(currentUser);
-
-      if (allUsers.length === 0) {
-        setError("No users to fetch...");
-      } else {
-        setUsers(allUsers);
-        setError(null);
-      }
-    } catch (error) {
-      console.error("There was an error fetching users", error);
-      setError("There was an error fetching users");
-    }
-  };
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const allUsers = await GigMatchApi.getAllUsers(currentUser);
+
+        if (allUsers.length === 0) {
+          setError("No users to fetch...");
+        } else {
+          setUsers(allUsers);
+          setError(null);
+        }
+      } catch (error) {
+        console.error("There was an error fetching users", error);
+        setError("There was an error fetching users");
+      }
+    };
     fetchUsers();
   }, [currentUser]);
 
@@ -41,7 +37,7 @@ const UserList = () => {
         <ListGroup>
           {users.map((user) => (
             <ListGroup.Item key={user.email}>
-              <UserCard user={user} fetchUpdatedUsers={fetchUsers} />
+              <UserCard user={user} />
             </ListGroup.Item>
           ))}
         </ListGroup>
@@ -49,5 +45,4 @@ const UserList = () => {
     </div>
   );
 };
-
 export default UserList;

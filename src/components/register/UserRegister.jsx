@@ -9,10 +9,9 @@ const UserRegister = () => {
     name: "",
     email: "",
     password: "",
-    artistname: "",
-    usertype: "Artist",
+    artistName: "",
+    userType: "Artist",
   });
-  const [error, setError] = useState("");
 
   const { setCurrentUser, setToken } = useContext(UserContext);
   const navigate = useNavigate();
@@ -27,26 +26,19 @@ const UserRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password.length < 8) {
-      setError("Password must be at least 8 characters long.");
-      return;
-    }
     try {
       const res = await GigMatchApi.registerUser(formData);
       const { token, user } = res;
 
       setToken(token);
       setCurrentUser(user);
-      GigMatchApi.token = token;
+      GigMatchApi.token = token; // Set token in GigMatchApi
 
       alert("Registration successful!");
       navigate("/master-calendar");
     } catch (error) {
-      if (error.response && error.response.data) {
-        setError(`Registration failed: ${error.response.data.error}`);
-      } else {
-        setError("Registration failed. Please try again later.");
-      }
+      console.error("Registration failed:", error);
+      alert("Registration failed. Please try again.");
     }
   };
 
@@ -87,13 +79,13 @@ const UserRegister = () => {
             required
           />
         </Form.Group>
-        <Form.Group controlId="artistname">
+        <Form.Group controlId="artistName">
           <Form.Label>Name of Artist or Group</Form.Label>
           <Form.Control
             type="text"
-            name="artistname"
+            name="artistName"
             placeholder="Enter artist's name"
-            value={formData.artistname}
+            value={formData.artistName}
             onChange={handleChange}
             required
           />
@@ -101,7 +93,6 @@ const UserRegister = () => {
         <Button type="submit" variant="primary">
           Register
         </Button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
       </Form>
     </Card>
   );

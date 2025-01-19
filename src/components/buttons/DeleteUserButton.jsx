@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUser } from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import GigMatchApi from "../../../utils/api";
 
-const DeleteUserButton = ({ user, fetchUpdatedUsers }) => {
+const DeleteUserButton = ({ user }) => {
   const { currentUser } = useUser();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const [shouldReload, setShouldReload] = useState(false);
   const userId = user.userid;
   const userType = currentUser.usertype;
+
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -21,7 +22,9 @@ const DeleteUserButton = ({ user, fetchUpdatedUsers }) => {
         await GigMatchApi.deleteUser(userId, currentUser.userid);
         setToastMessage(`${user.name}'s account has been deleted`);
         setShowToast(true);
-        setShouldReload(true); // Trigger re-fetching or state updates
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       } catch (error) {
         console.error("There was an error deleting that user", error);
         setToastMessage("Error deleting user. Please try again.");
@@ -33,13 +36,6 @@ const DeleteUserButton = ({ user, fetchUpdatedUsers }) => {
       setShowToast(true);
     }
   };
-
-  useEffect(() => {
-    if (shouldReload) {
-      fetchUpdatedUsers();
-      setShouldReload(false);
-    }
-  }, [shouldReload, fetchUpdatedUsers]);
 
   return (
     <>
@@ -64,5 +60,4 @@ const DeleteUserButton = ({ user, fetchUpdatedUsers }) => {
     </>
   );
 };
-
 export default DeleteUserButton;

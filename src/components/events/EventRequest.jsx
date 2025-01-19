@@ -7,14 +7,14 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
   const { currentUser } = useUser();
     
   const [formData, setFormData] = useState({
-    artistname: currentUser.artistname,
+    artistName: currentUser.artistname,
     status: "Pending",
-    requestdate: selectedDate ? formatDate(selectedDate) : "",
-    starttime: "19:00", 
-    endtime: "22:00", 
+    requestDate: selectedDate ? formatDate(selectedDate) : "",
+    startTime: "19:00", 
+    endTime: "22:00", 
     amount: "",
-    userid: currentUser?.userid || "",
-    eventname: "",
+    userId: currentUser?.userid || "",
+    eventName: "",
   });
 
   const isSubmitting = useRef(false);
@@ -23,7 +23,7 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
     if (selectedDate) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        requestdate: formatDate(selectedDate),
+        requestDate: formatDate(selectedDate),
       }));
     }
   }, [selectedDate]);
@@ -45,9 +45,9 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
     isSubmitting.current = true;
 
     try {
-      const displayEndTime = formData.endtime < formData.starttime
-        ? `${formData.endtime} (next day)`
-        : formData.endtime;
+      const displayEndTime = formData.endTime < formData.startTime
+        ? `${formData.endTime} (next day)`
+        : formData.endTime;
 
       const dataToSubmit = {
         ...formData,
@@ -96,7 +96,7 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
           <Form.Group>
             <Form.Label>Artist's Name:</Form.Label>
             <Form.Control
-              name="artistname"
+              name="artistName"
               type="text"
               value={currentUser.artistname}
               placeholder="Enter artist's name..."
@@ -109,7 +109,7 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
             <Form.Control
               name="eventName"
               type="text"
-              value={formData.eventname}
+              value={formData.eventName}
               placeholder="Solo or Band Show"
               onChange={handleChange}
               required
@@ -120,7 +120,7 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
             <Form.Control
               name="requestDate"
               type="date"
-              value={formData.requestdate}
+              value={formData.requestDate}
               onChange={handleChange}
               required
             />
@@ -129,8 +129,8 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
             <Form.Label>Start Time:</Form.Label>
             <Form.Control
               as="select"
-              name="starttime"
-              value={formData.starttime}
+              name="startTime"
+              value={formData.startTime}
               onChange={handleChange}
               required
             >
@@ -145,8 +145,8 @@ const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
             <Form.Label>End Time:</Form.Label>
             <Form.Control
               as="select"
-              name="endtime"
-              value={formData.endtime}
+              name="endTime"
+              value={formData.endTime}
               onChange={handleChange}
               required
             >

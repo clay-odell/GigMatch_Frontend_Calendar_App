@@ -18,22 +18,20 @@ const GigMatchRouter = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/artist-login" element={<ArtistLogin />} />
-      <Route path="/admin-login" element={<VenueLogin />} />
+      <Route path="/venue-login" element={<VenueLogin />} />
       <Route path="/artist-register" element={<UserRegister />} />
-      <Route path="/admin-register" element={<AdminRegister />} />  
+      {/* <Route path="/venue-register" element={<AdminRegister />} />  Here is an optional venue-register route that can be implemented*/}
       <Route path="/master-calendar" element={<MainCalendar />} />
       <Route path="/logout" element={<Logout />} />
       {currentUser ? (
         <>
         <Route path={`/users/${currentUser.artistname}/calendar`} element={<UserCalendar />} />
         <Route path={`/users/${currentUser.userid}/profile`} element={<UserProfile />} />
-        <Route path="/users/list" element={<UserList />} />
+        <Route path="users/list" element={<UserList />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to="/artist-login" />} />
       )}
-      {/* Redirect all other routes to Home */}
-      <Route path="*" element={<Home />} />
     </Routes>
   );
 };
