@@ -8,9 +8,11 @@ const UserList = () => {
   const { currentUser } = useUser();
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
+  const { token } = useUser();
 
   const fetchUsers = async () => {
     try {
+      GigMatchApi.token = token;
       const allUsers = await GigMatchApi.getAllUsers(currentUser);
 
       if (allUsers.length === 0) {
