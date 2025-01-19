@@ -22,8 +22,8 @@ const VenueLogin = () => {
     setError(null);
     try {
       const { token, admin } = await GigMatchApi.adminLogin(formData);
-
       setCurrentUser(admin);
+      console.log("Current User on Venue Login", admin);
       setToken(token);
 
       localStorage.setItem("currentUser", JSON.stringify(admin));
