@@ -89,7 +89,7 @@ const UserProfile = () => {
   return (
     <>
       <Card>
-        <h1>{currentUser.artistname}'s Profile:</h1>
+        <h1>{currentUser.name}'s Profile:</h1>
         <p>
           <strong>Username:</strong> {currentUser.email}
         </p>
