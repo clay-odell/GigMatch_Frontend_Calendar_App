@@ -9,7 +9,7 @@ const VenueLogin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { setCurrentUser, setToken, currentUser } = useUser();
+  const { setCurrentUser, setToken } = useUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +23,7 @@ const VenueLogin = () => {
       try {
         const { token, user } = await GigMatchApi.adminLogin(formData);
         setCurrentUser(user);
-        setCurrentToken(token);
+        setToken(token);
         navigate("/master-calendar");
       } catch (error) {
         setError("Login failed. Please check your credentials and try again.");
