@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
 import GigMatchApi from "../../../utils/api";
 import { useUser } from "../../contexts/UserContext";
@@ -14,6 +15,7 @@ const AdminRegister = () => {
   });
   const [error, setError] = useState("");
   const { setToken, setUser } = useUser();
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
