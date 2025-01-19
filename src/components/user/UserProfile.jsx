@@ -36,6 +36,10 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 487d2e61fe8e85fdc0be33d7252cdc5832492cd9
     try {
       const updatedUser = await GigMatchApi.updateUser(
         currentUser.userid,
