@@ -57,7 +57,7 @@ class GigMatchApi {
 
   static async registerAdmin(data) {
     const res = await this.request("admin/register", data, "post");
-    return res.user;
+    return res;
   }
   static async getAllUsers(requester) {
     const res = await this.request("admin/users", requester);
