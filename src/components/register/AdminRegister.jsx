@@ -11,7 +11,7 @@ const AdminRegister = () => {
     password: "",
     location: "",
     artistname: "",
-    usertype: "Admin",
+    usertype: "",
     venuename: "",
   });
   const [error, setError] = useState("");
@@ -25,17 +25,20 @@ const AdminRegister = () => {
       [name]: value,
     });
   };
-
+  const dataToSubmit = {
+    ...formData,
+    usertype: "Admin"
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if(formData.password.length < 8) {
+    if (dataToSubmit.password.length < 8) {
       setError("Password must be at least 8 characters");
       return;
     }
 
     try {
-      const res = await GigMatchApi.registerAdmin(formData);
+      const res = await GigMatchApi.registerAdmin(dataToSubmit);
       const { token, admin } = res;
 
       if (!token) {
@@ -46,7 +49,7 @@ const AdminRegister = () => {
         setError("Invalid or missing admin information.");
         return;
       }
-
+      console.log("Admin Register Token", token);
       setToken(token);
       setUser(admin);
       GigMatchApi.token = token;
