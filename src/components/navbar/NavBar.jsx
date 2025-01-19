@@ -23,7 +23,7 @@ const NavBar = () => {
                   Artist Sign Up
                 </Nav.Link>
                 <Nav.Link as={Link} to="/venue-register">
-                Venue Sign Up
+                  Venue Sign Up
                 </Nav.Link>
               </>
             ) : (
@@ -40,18 +40,16 @@ const NavBar = () => {
                 <Nav.Link as={Link} to={`/users/${currentUser.userid}/profile`}>
                   {currentUser.artistname} Profile
                 </Nav.Link>
-                {currentUser.usertype ===
-                  "Admin" && (
-                    <>
-                      <Nav.Link as={Link} to="users/list">
-                        User List
-                      </Nav.Link>
-                    </>
-                  )}
+                {currentUser.usertype === "Admin" && (
+                  <>
+                    <Nav.Link as={Link} to="users/list">
+                      User List
+                    </Nav.Link>
+                  </>
+                )}
                 <Nav.Link as={Link} to="/logout">
                   Logout
                 </Nav.Link>
-            
               </>
             )}
           </Nav>

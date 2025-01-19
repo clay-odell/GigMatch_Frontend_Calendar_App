@@ -16,6 +16,7 @@ const UserProfile = () => {
   const [rejectedEvents, setRejectedEvents] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [shouldReload, setShouldReload] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,16 +26,13 @@ const UserProfile = () => {
     }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await GigMatchApi.updateUser(currentUser.userid, formData);
       setToastMessage("Profile updated successfully");
       setShowToast(true);
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      setShouldReload(true);
     } catch (error) {
       console.error("There was an error updating the profile", error);
       setToastMessage("Error updating profile. Please try again.");
@@ -42,60 +40,51 @@ const UserProfile = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchPendingEvents = async () => {
-      try {
-        GigMatchApi.token = token;
-        const allPendingEvents = await GigMatchApi.getEventRequestsByStatus(
-          "Pending"
-        );
-        const userPendingEvents = allPendingEvents.filter(
-          (event) => event.userid === currentUser.userid
-        );
-        setPendingEvents(userPendingEvents);
-      } catch (error) {
-        console.error("There was an error fetching pending events", error);
-      }
-    };
-    fetchPendingEvents();
-  }, [token, currentUser.userid]);
+  const fetchPendingEvents = async () => {
+    try {
+      GigMatchApi.token = token;
+      const allPendingEvents = await GigMatchApi.getEventRequestsByStatus("Pending");
+      const userPendingEvents = allPendingEvents.filter(
+        (event) => event.userid === currentUser.userid
+      );
+      setPendingEvents(userPendingEvents);
+    } catch (error) {
+      console.error("There was an error fetching pending events", error);
+    }
+  };
+
+  const fetchApprovedEvents = async () => {
+    try {
+      const allApprovedEvents = await GigMatchApi.getEventRequestsByStatus("Approved");
+      const userApprovedEvents = allApprovedEvents.filter(
+        (event) => event.userid === currentUser.userid
+      );
+      setApprovedEvents(userApprovedEvents);
+    } catch (error) {
+      console.error("There was an error fetching approved events", error);
+    }
+  };
+
+  const fetchRejectedEvents = async () => {
+    try {
+      const allRejectedEvents = await GigMatchApi.getEventRequestsByStatus("Rejected");
+      const userRejectedEvents = allRejectedEvents.filter(
+        (event) => event.userid === currentUser.userid
+      );
+      setRejectedEvents(userRejectedEvents);
+    } catch (error) {
+      console.error("There was an error fetching rejected events", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchApprovedEvents = async () => {
-      try {
-        const allApprovedEvents = await GigMatchApi.getEventRequestsByStatus(
-          "Approved"
-        );
-        const userApprovedEvents = allApprovedEvents.filter(
-          (event) => event.userid === currentUser.userid
-        );
-        setApprovedEvents(userApprovedEvents);
-      } catch (error) {
-        console.error("There was an error fetching approved events", error);
-      }
-    };
-    fetchApprovedEvents();
-  }, [token]);
-
-  useEffect(() => {
-    const fetchRejectedEvents = async () => {
-      try {
-        const allRejectedEvents = await GigMatchApi.getEventRequestsByStatus(
-          "Rejected"
-        );
-        const userRejectedEvents = allRejectedEvents.filter(
-          (event) => event.userid === currentUser.userid
-        );
-        setRejectedEvents(userRejectedEvents);
-      } catch (error) {
-        console.error(
-          "There was an error fetching rejected event requests",
-          error
-        );
-      }
-    };
-    fetchRejectedEvents();
-  }, [token]);
+    if (shouldReload) {
+      fetchPendingEvents();
+      fetchApprovedEvents();
+      fetchRejectedEvents();
+      setShouldReload(false);
+    }
+  }, [shouldReload, token, currentUser.userid]);
 
   return (
     <>
@@ -109,40 +98,40 @@ const UserProfile = () => {
         </p>
         <Card.Title>Update User Account Information:</Card.Title>
         <Container>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formArtistName">
-            <Form.Label>Artist Name</Form.Label>
-            <Form.Control
-              type="text"
-              name="artistname"
-              value={formData.artistName}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="formUsername">
-            <Form.Label>Username/Email</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formArtistName">
+              <Form.Label>Artist Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="artistname"
+                value={formData.artistName}
+                onChange={handleChange}
               />
-          </Form.Group>
-          <Form.Group controlId="formPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <div className="d-flex justify-content-center mt-3">
-          <Button variant="primary" type="submit" className="mt-3">
-            Update Profile
-          </Button>
-          </div>
-        </Form>
+            </Form.Group>
+            <Form.Group controlId="formUsername">
+              <Form.Label>Username/Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <div className="d-flex justify-content-center mt-3">
+              <Button variant="primary" type="submit" className="mt-3">
+                Update Profile
+              </Button>
+            </div>
+          </Form>
         </Container>
         <ToastContainer position="top-end" className="p-3">
           <Toast show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide>
