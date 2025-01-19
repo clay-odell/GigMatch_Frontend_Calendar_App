@@ -38,7 +38,7 @@ const ArtistLogin = () => {
 
   return (
     <Card>
-      <Card.Title>Artist Login</Card.Title>
+      <Card.Title>Artist & Venue Sign In</Card.Title>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
