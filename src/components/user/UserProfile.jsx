@@ -8,8 +8,8 @@ const UserProfile = () => {
   const { currentUser, token } = useUser();
   const [formData, setFormData] = useState({
     email: currentUser.email,
-    password: "",
-    artistName: currentUser.artistname,
+    name: currentUser.name,
+    artistname: currentUser.artistname,
   });
   const [pendingEvents, setPendingEvents] = useState([]);
   const [approvedEvents, setApprovedEvents] = useState([]);
@@ -118,11 +118,11 @@ const UserProfile = () => {
               />
             </Form.Group>
             <Form.Group controlId="formPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
-                type="password"
-                name="password"
-                value={formData.password}
+                type="name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
               />
             </Form.Group>
