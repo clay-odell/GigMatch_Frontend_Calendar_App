@@ -68,9 +68,9 @@ class GigMatchApi {
     return res;
   }
   static async updateUser(userId, data) {
-    console.log("User ID", userId);
+    
     const res = await this.request(`user/${userId}`, data, "put");
-    console.log("Update User Res", res);
+    
     return res;
   }
 
@@ -99,7 +99,6 @@ class GigMatchApi {
   }
   static async deleteUser(userId) {
     const res = await this.request(`admin/users/${userId}`, {}, "delete");
-    console.log("Delete User Res", res);
     return res;
     }
   
