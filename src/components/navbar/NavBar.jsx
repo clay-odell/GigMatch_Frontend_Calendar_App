@@ -23,7 +23,10 @@ const NavBar = () => {
                   Venue Login
                 </Nav.Link>
                 <Nav.Link as={Link} to="/artist-register">
-                  Sign Up
+                  Artist Sign Up
+                </Nav.Link>
+                <Nav.Link as={Link} to="/venue-register">
+                Venue Sign Up
                 </Nav.Link>
               </>
             ) : (
