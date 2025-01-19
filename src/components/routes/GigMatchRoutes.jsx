@@ -26,17 +26,18 @@ const GigMatchRouter = () => {
       {currentUser ? (
         <>
           <Route
-            path={`/users/${currentUser.usertype === "Artist" ? currentUser.artistName : currentUser.venueName}/calendar`}
+            path={`/users/${currentUser.name}/calendar`}
             element={<UserCalendar />}
           />
           <Route
-            path={`/users/${currentUser.userId}/profile`}
+            path={`/users/${currentUser.name}/profile`}
             element={<UserProfile />}
           />
           {currentUser.usertype === "Admin" && <Route path="users/list" element={<UserList />} />}
+          <Route path="*" element={<Navigate to={`/users/${currentUser.name}/calendar`} />} />
         </>
       ) : (
-        <Route path="*" element={<Navigate to="/artist-login" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       )}
     </Routes>
   );
