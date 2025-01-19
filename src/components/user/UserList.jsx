@@ -5,10 +5,10 @@ import UserCard from "./UserCard";
 import { useUser } from "../../contexts/UserContext";
 
 const UserList = () => {
-  const { currentUser } = useUser();
+  const { currentUser, token } = useUser();
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
-  console.log("Current User:", currentUser.usertype);
+ 
 
 
   const fetchUsers = async () => {
