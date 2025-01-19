@@ -89,22 +89,22 @@ const UserProfile = () => {
   return (
     <>
       <Card>
-        <h1>{currentUser.name}'s Profile:</h1>
+        <h1>{currentUser.artistname ? `${currentUser.artistname}'s Profile` : `${currentUser.venuename}'s Profile`}</h1>
         <p>
           <strong>Username:</strong> {currentUser.email}
         </p>
         <p>
-          <strong>Artist Name:</strong> {currentUser.artistname}
+          <strong>{currentUser.usertype === 'Artist' ? 'Artist Name' : 'Venue Name'}:</strong> {currentUser.artistname || currentUser.venuename}
         </p>
         <Card.Title>Update User Account Information:</Card.Title>
         <Container>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formArtistName">
-              <Form.Label>Artist Name</Form.Label>
+              <Form.Label>{currentUser.usertype === 'Artist' ? 'Artist Name' : 'Venue Name'}</Form.Label>
               <Form.Control
                 type="text"
                 name="artistname"
-                value={formData.artistName}
+                value={formData.artistname || formData.venuename}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -156,6 +156,7 @@ const UserProfile = () => {
       </Card>
     </>
   );
+  
 };
 
 export default UserProfile;
