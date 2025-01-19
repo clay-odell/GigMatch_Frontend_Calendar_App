@@ -4,7 +4,7 @@ import GigMatchApi from "../../../utils/api";
 import { useUser } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const ArtistLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const { setCurrentUser, setToken } = useUser();
@@ -27,7 +27,7 @@ const Login = () => {
       localStorage.setItem("currentUser", JSON.stringify(user));
       localStorage.setItem("token", token);
       GigMatchApi.token = token;
-      navigate("/");
+      navigate("/master-calendar");
     } catch (error) {
       console.error("There was an error:", error);
       setError("Login failed. Please check your credentials and try again.");
@@ -72,4 +72,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ArtistLogin;
