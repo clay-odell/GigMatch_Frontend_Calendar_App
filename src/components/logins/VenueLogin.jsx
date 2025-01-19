@@ -20,11 +20,12 @@ const VenueLogin = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    if (!currentUser) {
       try {
-        const { token, admin } = await GigMatchApi.adminLogin(formData);
+        const admin = await GigMatchApi.adminLogin(formData);
+        setCurrentUser(admin)
+        const token = admin.token;
         console.log("Admin", admin);
-        setCurrentUser(admin);
+        console.log("currentUser", currentUser);
         setToken(token);
         localStorage.setItem("currentUser", JSON.stringify(admin));
         localStorage.setItem("token", token);
@@ -34,8 +35,7 @@ const VenueLogin = () => {
       } finally {
         setLoading(false);
       }
-    }
-  };
+    };
 
   return (
     <Card>
