@@ -24,6 +24,7 @@ const VenueLogin = () => {
         const { token, user } = await GigMatchApi.adminLogin(formData);
         console.log("User", user);
         setCurrentUser(user);
+        console.log(token);
         setToken(token);
         navigate("/master-calendar");
       } catch (error) {

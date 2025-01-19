@@ -24,7 +24,6 @@ const NavBar = () => {
                     Venue Login
                   </NavDropdown.Item>
                 </NavDropdown>
-
                 <Nav.Link as={Link} to="/artist-register">
                   Artist Sign Up
                 </Nav.Link>
@@ -39,19 +38,17 @@ const NavBar = () => {
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
-                  to={`users/${currentUser.artistName}/calendar`}
+                  to={`users/${currentUser.usertype === "Artist" ? currentUser.artistname : currentUser.venuename}/calendar`}
                 >
                   {currentUser.name}'s Calendar
                 </Nav.Link>
-                <Nav.Link as={Link} to={`/users/${currentUser.userId}/profile`}>
-                  {currentUser.artistName} Profile
+                <Nav.Link as={Link} to={`/users/${currentUser.userid}/profile`}>
+                  {currentUser.usertype === "Artist" ? currentUser.artistname : currentUser.venuename} Profile
                 </Nav.Link>
                 {currentUser.usertype === "Admin" && (
-                  <>
-                    <Nav.Link as={Link} to="users/list">
-                      Users List
-                    </Nav.Link>
-                  </>
+                  <Nav.Link as={Link} to="users/list">
+                    Users List
+                  </Nav.Link>
                 )}
                 <Nav.Link as={Link} to="/logout">
                   Logout
