@@ -29,14 +29,14 @@ const AdminRegister = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formData.password.length < 8) {
+    if(formData.password.length < 8) {
       setError("Password must be at least 8 characters");
       return;
     }
 
     try {
       const res = await GigMatchApi.registerAdmin(formData);
-      const { token, admin } = res; // Adjusted to match backend response
+      const { token, admin } = res;
 
       if (!token) {
         setError("Invalid or missing token.");
@@ -48,7 +48,7 @@ const AdminRegister = () => {
       }
 
       setToken(token);
-      setUser(admin); // Correctly set the current user
+      setUser(admin);
       GigMatchApi.token = token;
       alert("Registration successful!");
       navigate("/master-calendar");
@@ -113,8 +113,8 @@ const AdminRegister = () => {
           <Form.Label>Venue Name</Form.Label>
           <Form.Control
             type="text"
-            name="venuename"
-            placeholder="Enter venue name" // Adjust placeholder text
+            name="venuename" // Corrected name attribute
+            placeholder="Enter venue name"
             value={formData.venuename}
             onChange={handleChange}
             required
