@@ -36,7 +36,7 @@ const NavBar = () => {
                 <Nav.Link as={Link} to="/master-calendar">
                   Main Calendar
                 </Nav.Link>
-                <Nav.Link as={Link} to={`users/${currentUser.usertype === "Artist" ? currentUser.artistname : currentUser.venuename}/calendar`}>
+                <Nav.Link as={Link} to={`users/${currentUser.userid}/calendar`}>
                   {currentUser.usertype === "Artist" ? currentUser.artistname : currentUser.venuename}'s Calendar
                 </Nav.Link>
                 <Nav.Link as={Link} to={`/users/${currentUser.userid}/profile`}>

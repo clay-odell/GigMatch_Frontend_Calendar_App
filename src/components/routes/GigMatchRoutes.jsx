@@ -26,11 +26,11 @@ const GigMatchRouter = () => {
       {currentUser ? (
         <>
           <Route
-            path={`/users/${currentUser.name}/calendar`}
+            path={`/users/${currentUser.userid}/calendar`}
             element={<UserCalendar />}
           />
           <Route
-            path={`/users/${currentUser.name}/profile`}
+            path={`/users/${currentUser.userid}/profile`}
             element={<UserProfile />}
           />
           {currentUser.usertype === "Admin" && <Route path="users/list" element={<UserList />} />}
