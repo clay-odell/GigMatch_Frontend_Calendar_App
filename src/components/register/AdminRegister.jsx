@@ -28,35 +28,37 @@ const AdminRegister = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(formData.password.length < 8) {
+
+    if (formData.password.length < 8) {
       setError("Password must be at least 8 characters");
+      return;
     }
 
     try {
       const res = await GigMatchApi.registerAdmin(formData);
-      const { token, user } = res;
+      const { token, admin } = res; // Adjusted to match backend response
 
       if (!token) {
         setError("Invalid or missing token.");
         return;
       }
-      if (!user) {
+      if (!admin) {
         setError("Invalid or missing admin information.");
         return;
       }
 
       setToken(token);
-      setCurrentUser(user);
-      GigMatchApi.token = token; // Set token in GigMatchApi
+      setUser(admin); // Correctly set the current user
+      GigMatchApi.token = token;
       alert("Registration successful!");
       navigate("/master-calendar");
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setError(`Registration failed: ${error.response.data.error}`);
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(`Registration failed: ${err.response.data.error}`);
       } else {
         setError("Registration failed. Please try again later.");
       }
-      console.error("Registration failed:", error);
+      console.error("Registration failed:", err);
     }
   };
 
@@ -111,19 +113,18 @@ const AdminRegister = () => {
           <Form.Label>Venue Name</Form.Label>
           <Form.Control
             type="text"
-            name="location"
-            placeholder="Enter venue name"
+            name="venuename"
+            placeholder="Enter venue name" // Adjust placeholder text
             value={formData.venuename}
             onChange={handleChange}
             required
-            />
+          />
         </Form.Group>
         <br />
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Button type="submit" variant="primary">
           Register
         </Button>
-        
       </Form>
     </Card>
   );
