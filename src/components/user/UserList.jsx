@@ -8,7 +8,8 @@ const UserList = () => {
   const { currentUser } = useUser();
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
-  const { token } = useUser();
+  console.log("Current User:", currentUser.usertype);
+
 
   const fetchUsers = async () => {
     try {
