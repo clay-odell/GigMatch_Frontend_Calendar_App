@@ -9,30 +9,31 @@ const VenueLogin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { setCurrentUser, setToken } = useUser();
+  const { setCurrentUser, setToken, currentUser } = useUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  console.log("Form Data", formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    try {
-      const { token, admin } = await GigMatchApi.adminLogin(formData);
-      setCurrentUser(admin);
-      setToken(token);
-      localStorage.setItem("currentUser", JSON.stringify(admin));
-      localStorage.setItem("token", token);
-      navigate("/master-calendar");
-    } catch (error) {
-      setError("Login failed. Please check your credentials and try again.");
-    } finally {
-      setLoading(false);
+    if (!currentUser) {
+      try {
+        const { token, admin } = await GigMatchApi.adminLogin(formData);
+        console.log("Admin", admin);
+        setCurrentUser(admin);
+        setToken(token);
+        localStorage.setItem("currentUser", JSON.stringify(admin));
+        localStorage.setItem("token", token);
+        navigate("/master-calendar");
+      } catch (error) {
+        setError("Login failed. Please check your credentials and try again.");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
