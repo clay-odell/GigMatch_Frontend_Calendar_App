@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || "https://gigmatch-backend.onrender.com";
+const BASE_URL =
+  import.meta.env.VITE_BASE_URL || "https://gigmatch-backend.onrender.com";
 
 class GigMatchApi {
   static token = localStorage.getItem("token");
@@ -67,15 +68,14 @@ class GigMatchApi {
     const res = await this.request("event", data, "post");
     return res;
   }
-  static async updateUser(userId, data) {
-    console.log("User ID", userId);
-    const res = await this.request(`user/${userId}`, data, "put");
-    console.log("Update User Res", res);
+  static async updateUser(userid, data) {
+    const res = await this.request(`user/${userid}`, data, "put");
+
     return res;
   }
 
-  static async updateEventRequest(requestId, data) {
-    const res = await this.request(`event/${requestId}`, data, "put");
+  static async updateEventRequest(requestid, data) {
+    const res = await this.request(`event/${requestid}`, data, "put");
     return res;
   }
 
@@ -84,8 +84,8 @@ class GigMatchApi {
     return res;
   }
 
-  static async getEventRequestsByUserId(userId) {
-    const res = await this.request(`user/events/${userId}`);
+  static async getEventRequestsByUserId(userid) {
+    const res = await this.request(`user/events/${userid}`);
     return res;
   }
 
@@ -93,16 +93,19 @@ class GigMatchApi {
     const res = await this.request(`event/${status}`);
     return res;
   }
-  static async deleteEventRequestByRequestId(requestId) {
-    const res = await this.request(`admin/event-requests/${requestId}`, {}, "delete");
+  static async deleteEventRequestByRequestId(requestid) {
+    const res = await this.request(
+      `admin/event-requests/${requestid}`,
+      {},
+      "delete"
+    );
     return res;
   }
-  static async deleteUser(userId) {
-    const res = await this.request(`admin/users/${userId}`, {}, "delete");
+  static async deleteUser(userid) {
+    const res = await this.request(`admin/users/${userid}`, {}, "delete");
     console.log("Delete User Res", res);
     return res;
-    }
-  
+  }
 }
 
 export default GigMatchApi;

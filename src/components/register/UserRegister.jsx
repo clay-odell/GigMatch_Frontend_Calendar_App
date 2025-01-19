@@ -9,8 +9,8 @@ const UserRegister = () => {
     name: "",
     email: "",
     password: "",
-    artistName: "",
-    userType: "Artist",
+    artistname: "",
+    usertype: "Artist",
   });
   const [error, setError] = useState("");
 
@@ -87,13 +87,13 @@ const UserRegister = () => {
             required
           />
         </Form.Group>
-        <Form.Group controlId="artistName">
+        <Form.Group controlId="artistname">
           <Form.Label>Name of Artist or Group</Form.Label>
           <Form.Control
             type="text"
-            name="artistName"
+            name="artistname"
             placeholder="Enter artist's name"
-            value={formData.artistName}
+            value={formData.artistname}
             onChange={handleChange}
             required
           />

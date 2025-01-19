@@ -5,10 +5,11 @@ import { useUser } from "../../contexts/UserContext";
 
 const AdminRegister = () => {
   const [formData, setFormData] = useState({
-    venueName: "",
+    venuename: "",
     email: "",
     password: "",
     location: "",
+    artistname: "",
   });
   const [error, setError] = useState("");
   const { setToken, setUser } = useUser();
@@ -31,7 +32,8 @@ const AdminRegister = () => {
 
     const dataToSubmit = {
       ...formData,
-      userType: formData.userType || "Admin",
+      userType: formData.usertype || "Admin",
+      artistname: formData.venuename || formData.artistname
     };
 
     try {
