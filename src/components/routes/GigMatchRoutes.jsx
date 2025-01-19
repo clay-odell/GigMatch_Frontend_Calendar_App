@@ -1,6 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import ArtistLogin from "../logins/Login";
-import VenueLogin from "../logins/VenueLogin";
+import Login from "../logins/Login";
 import Home from "../home/Home";
 import UserRegister from "../register/UserRegister";
 import AdminRegister from "../register/AdminRegister";
@@ -17,8 +16,7 @@ const GigMatchRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/artist-login" element={<Login />} />
-      <Route path="/venue-login" element={<VenueLogin />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/artist-register" element={<UserRegister />} />
       <Route path="/venue-register" element={<AdminRegister />} />  
       <Route path="/master-calendar" element={<MainCalendar />} />

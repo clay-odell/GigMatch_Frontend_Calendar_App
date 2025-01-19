@@ -4,7 +4,7 @@ import GigMatchApi from "../../../utils/api";
 import { useUser } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
-const ArtistLogin = () => {
+const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const { setCurrentUser, setToken } = useUser();
@@ -72,4 +72,4 @@ const ArtistLogin = () => {
   );
 };
 
-export default ArtistLogin;
+export default Login;

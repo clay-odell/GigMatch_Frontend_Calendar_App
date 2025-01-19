@@ -16,7 +16,7 @@ const NavBar = () => {
           <Nav className="me-auto">
             {!currentUser ? (
               <>
-                <Nav.Link as={Link} to="/artist-login">
+                <Nav.Link as={Link} to="/login">
                   Sign In
                 </Nav.Link>
                 <Nav.Link as={Link} to="/artist-register">
