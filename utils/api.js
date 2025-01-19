@@ -46,6 +46,7 @@ class GigMatchApi {
 
   static async adminLogin(data) {
     const res = await this.request("admin/login", data, "post");
+    console.log("Token Admin Login", res.token);
     this.storeToken(res.token);
     return res;
   }
