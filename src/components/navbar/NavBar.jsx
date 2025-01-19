@@ -36,11 +36,11 @@ const NavBar = () => {
                 <Nav.Link as={Link} to="/master-calendar">
                   Main Calendar
                 </Nav.Link>
-                <Nav.Link as={Link} to={`users/${currentUser.name}/calendar`}>
-                  {currentUser.name}'s Calendar
+                <Nav.Link as={Link} to={`users/${currentUser.usertype === "Artist" ? currentUser.artistname : currentUser.venuename}/calendar`}>
+                  {currentUser.usertype === "Artist" ? currentUser.artistname : currentUser.venuename}'s Calendar
                 </Nav.Link>
-                <Nav.Link as={Link} to={`/users/${currentUser.name}/profile`}>
-                  {currentUser.name}'s' Profile
+                <Nav.Link as={Link} to={`/users/${currentUser.userid}/profile`}>
+                  {currentUser.name}'s Profile
                 </Nav.Link>
                 {currentUser.usertype === "Admin" && (
                   <Nav.Link as={Link} to="users/list">
