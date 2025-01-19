@@ -38,6 +38,7 @@ const AdminRegister = () => {
     }
 
     try {
+      const { password, ...dataToSubmit } = formData;
       const res = await GigMatchApi.registerAdmin(dataToSubmit);
       const { token, admin } = res;
 
