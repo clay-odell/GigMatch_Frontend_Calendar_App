@@ -30,6 +30,7 @@ const UserProfile = () => {
     e.preventDefault();
     try {
       await GigMatchApi.updateUser(currentUser.userid, formData);
+      console.log("FormData Submitted on Update Profile", formData);
       setToastMessage("Profile updated successfully");
       setShowToast(true);
       setShouldReload(true);
