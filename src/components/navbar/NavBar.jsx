@@ -17,12 +17,12 @@ const NavBar = () => {
             {!currentUser ? (
               <>
                 <NavDropdown title="Log In">
-                  <Dropdown.Item as={Link} to="/artist-login">
+                  <NavDropdown.Item as={Link} to="/artist-login">
                     Artist Register
-                  </Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/venue-login">
+                  </NavDropdown.Item>
+                  <NavDropDown.Item as={Link} to="/venue-login">
                     Venue Register
-                  </Dropdown.Item>
+                  </NavDropDown.Item>
                 </NavDropdown>
 
                 <Nav.Link as={Link} to="/artist-register">
