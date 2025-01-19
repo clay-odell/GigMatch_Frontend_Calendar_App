@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useUser } from "../../contexts/UserContext";
 import "../../styles/eventRequest.css";
 
-const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
+const EventRequest = ({ selecteddate, hideForm, onSubmit }) => {
   const { currentUser } = useUser();
     
   const [formData, setFormData] = useState({
