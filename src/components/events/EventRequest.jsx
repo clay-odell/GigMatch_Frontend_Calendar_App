@@ -3,13 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import { useUser } from "../../contexts/UserContext";
 import "../../styles/eventRequest.css";
 
-const EventRequest = ({ selecteddate, hideForm, onSubmit }) => {
+const EventRequest = ({ selectedDate, hideForm, onSubmit }) => {
   const { currentUser } = useUser();
     
   const [formData, setFormData] = useState({
     artistname: currentUser.artistname,
     status: "Pending",
-    requestdate: selecteddate ? formatDate(selecteddate) : "",
+    requestdate: selectedDate ? formatDate(selectedDate) : "",
     starttime: "19:00", 
     endtime: "22:00", 
     amount: "",
@@ -20,13 +20,13 @@ const EventRequest = ({ selecteddate, hideForm, onSubmit }) => {
   const isSubmitting = useRef(false);
 
   useEffect(() => {
-    if (selecteddate) {
+    if (selectedDate) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        requestdate: formatDate(selecteddate),
+        requestdate: formatDate(selectedDate),
       }));
     }
-  }, [selecteddate]);
+  }, [selectedDate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

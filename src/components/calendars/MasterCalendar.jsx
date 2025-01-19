@@ -52,7 +52,7 @@ const MasterCalendar = () => {
         artistName: currentUser.artistname,
         userId: currentUser.userid,
         status: "Pending",
-        requestDate: value,
+        requestdate: value,
       };
       console.log("Form Data", formData);
       GigMatchApi.token = token;
@@ -70,7 +70,7 @@ const MasterCalendar = () => {
         if (event.status !== "Approved") { 
           return false;
         }
-        const eventDate = new Date(event.requestdate);
+        const eventDate = new Date(event.requestDate);
         return eventDate.toDateString() === date.toDateString();
       });
       if (dayEvents.length > 0) {
