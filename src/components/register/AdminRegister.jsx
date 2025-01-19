@@ -6,16 +6,17 @@ import { useUser } from "../../contexts/UserContext";
 
 const AdminRegister = () => {
   const [formData, setFormData] = useState({
-    venuename: "",
+    name: "",
     email: "",
     password: "",
     location: "",
     artistname: "",
-    usertype: "Admin"
+    usertype: "Admin",
+    venuename: "",
   });
   const [error, setError] = useState("");
   const { setToken, setUser } = useUser();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,19 +26,15 @@ const AdminRegister = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    if (formData.password.length < 8) {
-      setError("Password must be at least 8 characters in length.");
-      return;
-    }
-
+    // Ensure name and venuename are set correctly
     const dataToSubmit = {
       ...formData,
-      artistname: formData.artistname || formData.venuename
+      name: formData.name || formData.venuename,
+      venuename: formData.venuename || formData.name,
     };
-    
 
     try {
       const res = await GigMatchApi.registerAdmin(dataToSubmit);

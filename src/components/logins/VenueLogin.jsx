@@ -25,9 +25,6 @@ const VenueLogin = () => {
       setCurrentUser(admin);
       console.log("Current User on Venue Login", admin);
       setToken(token);
-
-      localStorage.setItem("currentUser", JSON.stringify(admin));
-      localStorage.setItem("token", token);
       navigate("/master-calendar");
     } catch (error) {
       setError("Login failed. Please check your credentials and try again.");
