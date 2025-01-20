@@ -8,8 +8,8 @@ const UserProfile = () => {
   const { currentUser, token } = useUser();
   const [formData, setFormData] = useState({
     email: currentUser.email,
-    name: currentUser.name,
-    artistname: currentUser.artistname,
+    artistname: currentUser.name || currentUser.venuename,
+    name: currentUser.name
   });
   const [pendingEvents, setPendingEvents] = useState([]);
   const [approvedEvents, setApprovedEvents] = useState([]);
