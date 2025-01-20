@@ -9,7 +9,7 @@ const UserProfile = () => {
   const [formData, setFormData] = useState({
     email: currentUser.email,
     name: currentUser.name,
-    artistName: currentUser.artistname,
+    artistname: currentUser.artistname,
   });
   const [pendingEvents, setPendingEvents] = useState([]);
   const [approvedEvents, setApprovedEvents] = useState([]);
@@ -105,7 +105,7 @@ const UserProfile = () => {
               <Form.Control
                 type="text"
                 name="artistname"
-                value={formData.artistName || formData.venuename}
+                value={formData.artistname || formData.venuename}
                 onChange={handleChange}
               />
             </Form.Group>
