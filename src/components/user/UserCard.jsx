@@ -9,20 +9,21 @@ const UserCard = ({ user }) => {
     <Card>
       <Container>
         <Card.Title>{user.name}</Card.Title>
-        <>
+        <p>
+          <strong>Username:</strong> {user.email}
+        </p>
+        <p>
+          <strong>User Type:</strong> {user.usertype}
+        </p>
+        {user.usertype === "Admin" ? (
           <p>
-            <strong>Username:</strong>
-            {user.email}
+            <strong>Venue Name:</strong> {user.venuename}
           </p>
+        ) : (
           <p>
-            <strong>Artist Name: </strong>
-            {user.artistname}
+            <strong>Artist Name:</strong> {user.artistname}
           </p>
-          <p>
-            <strong>User Type: </strong>
-            {user.usertype}
-          </p>
-        </>
+        )}
         <div className="d-flex justify-content-center mt-3">
           <DeleteUserButton user={user} />
         </div>
@@ -30,4 +31,5 @@ const UserCard = ({ user }) => {
     </Card>
   );
 };
+
 export default UserCard;
