@@ -37,7 +37,7 @@ const UserProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await GigMatchApi.updateUser(currentUser.userId, formData);
+      await GigMatchApi.updateUser(currentUser.userid, formData);
       setToastMessage("Profile updated successfully");
       setShowToast(true);
       setShouldReload(true);
@@ -54,7 +54,7 @@ const UserProfile = () => {
         "Pending"
       );
       const userPendingEvents = allPendingEvents.filter(
-        (event) => event.userId === currentUser.userId
+        (event) => event.userid === currentUser.userid
       );
       setPendingEvents(userPendingEvents);
     } catch (error) {
@@ -68,7 +68,7 @@ const UserProfile = () => {
         "Approved"
       );
       const userApprovedEvents = allApprovedEvents.filter(
-        (event) => event.userId === currentUser.userId
+        (event) => event.userid === currentUser.userid
       );
       setApprovedEvents(userApprovedEvents);
     } catch (error) {
@@ -82,7 +82,7 @@ const UserProfile = () => {
         "Rejected"
       );
       const userRejectedEvents = allRejectedEvents.filter(
-        (event) => event.userId === currentUser.userId
+        (event) => event.userid === currentUser.userid
       );
       setRejectedEvents(userRejectedEvents);
     } catch (error) {
@@ -97,7 +97,7 @@ const UserProfile = () => {
       fetchRejectedEvents();
       setShouldReload(false);
     }
-  }, [shouldReload, token, currentUser.userId]);
+  }, [shouldReload, token, currentUser.userid]);
 
   return (
     <>
