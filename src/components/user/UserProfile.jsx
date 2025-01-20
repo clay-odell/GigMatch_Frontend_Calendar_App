@@ -29,6 +29,7 @@ const UserProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      GigMatchApi.token = token;
       await GigMatchApi.updateUser(currentUser.userid, formData);
       console.log("FormData Submitted on Update Profile", formData);
       setToastMessage("Profile updated successfully");
