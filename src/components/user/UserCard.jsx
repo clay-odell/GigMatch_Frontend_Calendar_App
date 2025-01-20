@@ -3,8 +3,7 @@ import DeleteUserButton from "../buttons/DeleteUserButton";
 import { useUser } from "../../contexts/UserContext";
 
 const UserCard = ({ user }) => {
-  const { currentUser } = useUser();
-
+  console.log("User object", user);
   return (
     <Card>
       <Container>
