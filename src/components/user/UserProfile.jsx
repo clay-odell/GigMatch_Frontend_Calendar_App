@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../../contexts/UserContext";
-import { ToastContainer, Container, Card, Button, Form, Toast } from "react-bootstrap";
+import {
+  ToastContainer,
+  Container,
+  Card,
+  Button,
+  Form,
+  Toast,
+} from "react-bootstrap";
 import GigMatchApi from "../../../utils/api";
 import EventList from "../events/EventList";
 
@@ -8,8 +15,9 @@ const UserProfile = () => {
   const { currentUser, token } = useUser();
   const [formData, setFormData] = useState({
     email: currentUser.email,
-    artistname: currentUser.name || currentUser.venuename,
-    name: currentUser.name
+    name: currentUser.name,
+    artistname: currentUser.artistname,
+    venuename: currentUser.venuename,
   });
   const [pendingEvents, setPendingEvents] = useState([]);
   const [approvedEvents, setApprovedEvents] = useState([]);
@@ -29,9 +37,7 @@ const UserProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      GigMatchApi.token = token;
-      await GigMatchApi.updateUser(currentUser.userid, formData);
-      console.log("FormData Submitted on Update Profile", formData);
+      await GigMatchApi.updateUser(currentUser.userId, formData);
       setToastMessage("Profile updated successfully");
       setShowToast(true);
       setShouldReload(true);
@@ -44,10 +50,11 @@ const UserProfile = () => {
 
   const fetchPendingEvents = async () => {
     try {
-      GigMatchApi.token = token;
-      const allPendingEvents = await GigMatchApi.getEventRequestsByStatus("Pending");
+      const allPendingEvents = await GigMatchApi.getEventRequestsByStatus(
+        "Pending"
+      );
       const userPendingEvents = allPendingEvents.filter(
-        (event) => event.userid === currentUser.userid
+        (event) => event.userId === currentUser.userId
       );
       setPendingEvents(userPendingEvents);
     } catch (error) {
@@ -57,9 +64,11 @@ const UserProfile = () => {
 
   const fetchApprovedEvents = async () => {
     try {
-      const allApprovedEvents = await GigMatchApi.getEventRequestsByStatus("Approved");
+      const allApprovedEvents = await GigMatchApi.getEventRequestsByStatus(
+        "Approved"
+      );
       const userApprovedEvents = allApprovedEvents.filter(
-        (event) => event.userid === currentUser.userid
+        (event) => event.userId === currentUser.userId
       );
       setApprovedEvents(userApprovedEvents);
     } catch (error) {
@@ -69,9 +78,11 @@ const UserProfile = () => {
 
   const fetchRejectedEvents = async () => {
     try {
-      const allRejectedEvents = await GigMatchApi.getEventRequestsByStatus("Rejected");
+      const allRejectedEvents = await GigMatchApi.getEventRequestsByStatus(
+        "Rejected"
+      );
       const userRejectedEvents = allRejectedEvents.filter(
-        (event) => event.userid === currentUser.userid
+        (event) => event.userId === currentUser.userId
       );
       setRejectedEvents(userRejectedEvents);
     } catch (error) {
@@ -86,27 +97,44 @@ const UserProfile = () => {
       fetchRejectedEvents();
       setShouldReload(false);
     }
-  }, [shouldReload, token, currentUser.userid]);
+  }, [shouldReload, token, currentUser.userId]);
 
   return (
     <>
       <Card>
-        <h1>{currentUser.artistname ? `${currentUser.artistname}'s Profile` : `${currentUser.venuename}'s Profile`}</h1>
+        <h1>
+          {currentUser.artistname
+            ? `${currentUser.artistname}'s Profile`
+            : `${currentUser.venuename}'s Profile`}
+        </h1>
         <p>
           <strong>Username:</strong> {currentUser.email}
         </p>
         <p>
-          <strong>{currentUser.usertype === 'Artist' ? 'Artist Name' : 'Venue Name'}:</strong> {currentUser.artistname || currentUser.venuename}
+          <strong>
+            {currentUser.usertype === "Artist" ? "Artist Name" : "Venue Name"}:
+          </strong>{" "}
+          {currentUser.artistname || currentUser.venuename}
         </p>
         <Card.Title>Update User Account Information:</Card.Title>
         <Container>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formArtistName">
-              <Form.Label>{currentUser.usertype === 'Artist' ? 'Artist Name' : 'Venue Name'}</Form.Label>
+              <Form.Label>
+                {currentUser.usertype === "Artist"
+                  ? "Artist Name"
+                  : "Venue Name"}
+              </Form.Label>
               <Form.Control
                 type="text"
-                name="artistname"
-                value={formData.artistname || formData.venuename}
+                name={
+                  currentUser.usertype === "Artist" ? "artistname" : "venuename"
+                }
+                value={
+                  currentUser.usertype === "Artist"
+                    ? formData.artistname
+                    : formData.venuename
+                }
                 onChange={handleChange}
               />
             </Form.Group>
@@ -119,10 +147,10 @@ const UserProfile = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group controlId="formPassword">
+            <Form.Group controlId="formName">
               <Form.Label>Name</Form.Label>
               <Form.Control
-                type="name"
+                type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
@@ -135,8 +163,13 @@ const UserProfile = () => {
             </div>
           </Form>
         </Container>
-        <ToastContainer position="top-end" className="p-3">
-          <Toast show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide>
+        <ToastContainer position="top-start" className="p-3">
+          <Toast
+            show={showToast}
+            onClose={() => setShowToast(false)}
+            delay={3000}
+            autohide
+          >
             <Toast.Header>
               <strong className="me-auto">Notification</strong>
             </Toast.Header>
@@ -158,7 +191,6 @@ const UserProfile = () => {
       </Card>
     </>
   );
-  
 };
 
 export default UserProfile;
